@@ -1,21 +1,22 @@
 // draft of my lang
 
-!fn:a(int:n) = {
-    !int:num = n;
+!fn:void:a(num:n) = {
+    !num:n = n+10;
     rt;
 }
-!fn:b(int:n;int) = {
+!fn:num:b(num:n) = {
     rt:n;
 }
-!fn:main() = {
-    a(int:10);
-    !int:num;
-    {num += b(int:4);}.while(num<50);
+!fn:void:main() = {
+    a(num:10);
+    !num:n;
+    n = 0;
+    {n += b(num:4);}.while(n<50);
 }
 !class:c = {
-    !fn:c() = {
+    !fn:void:c() = {
     }
-    !fn:ta(;int) = {
-        rt:{int:10};
+    !fn:void:ta() = {
+        rt:10;
     }
 }
