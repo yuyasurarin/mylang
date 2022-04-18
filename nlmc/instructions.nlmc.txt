@@ -1,0 +1,36 @@
+;複製 複製先,複製元
+mov arg1,arg2
+
+;移動先
+label:
+
+;足し算 変更先,値 (arg1+arg2)
+add arg1,arg2
+;引き算 変更先,値 (arg1-arg2)
+sub arg1,arg2
+;掛け算 変更先,値 (arg1*arg2)
+mul arg1,arg2
+;割り算 変更先,値 (arg1/arg2)
+div arg1,arg2
+
+;追加 値
+push arg1
+;取り出し 取り出し先
+pop arg1
+
+;比較 値1,値2
+cmp arg2,arg3
+
+;移動 移動先
+jmp arg1
+;条件付き移動 移動先
+jz arg1
+jnz arg1
+
+; ここまで x86の真似
+; ここから 自作
+
+;送信 送り先,名前,データ
+send arg1,arg2,arg3
+;受信 送り元の保存先,名前の保存先,データの保存先
+get arg1,arg2,arg3

@@ -5,41 +5,19 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <div></div>
+        <textarea id="code" style="width: 500px;height: 500px;" spellcheck="false" autocomplete="off"></textarea>
+        <button onclick="run()">run</button>
+        <p>result >> <span id="result"></span></p>
     </body>
 </html>
 <script src="nlmc.js"></script>
 <script>
 
-code = `; https://www.sigbus.info/compilerbook より
-; 2*3を計算して結果をスタックにプッシュ
-push 2
-push 3
-
-pop rdi
-pop rax
-mul rax, rdi
-push rax
-
-; 4*5を計算して結果をスタックにプッシュ
-push 4
-push 5
-
-pop rdi
-pop rax
-mul rax, rdi
-push rax
-
-; スタックトップの2つの値を足す
-; つまり2*3+4*5を計算する
-pop rdi
-pop rax
-add rax, rdi
-push rax`
-
-var nlmc = new NLMC(code);
-
-console.log(nlmc.getCode())
-nlmc.run()
+function run() {
+    code = document.getElementById("code").value
+    var nlmc = new NLMC(code);
+    console.log(nlmc.getCode())
+    document.getElementById("result").innerHTML = nlmc.run()
+}
 
 </script>
