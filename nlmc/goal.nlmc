@@ -25,3 +25,5 @@ pop rdi
 pop rax
 add rax, rdi
 push rax
+
+mov ret, rax
