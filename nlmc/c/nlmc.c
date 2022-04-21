@@ -1,23 +1,11 @@
 // // 2022.4 haruki1234
 #include<stdio.h>
+#include<stdlib.h>
 
-int code[5][5] = {{1,0,0,0,0},{2,0,0,0,5},{6,0,0,0,2},{7,1,0,1,0},{4,1,0,0,1}};
-//int code[2][5] = {{1,1,1,1,1},{1,1,1,1,1}};
 
-int lcode[100];
+int **code;
+int *lcode;
 
-void codetl() {
-    int r = 0;
-    while (r<sizeof(code)/sizeof(code[0])) {
-        int i = r*5;
-        lcode[i+0] = code[r][0];
-        lcode[i+1] = code[r][1];
-        lcode[i+2] = code[r][2];
-        lcode[i+3] = code[r][3];
-        lcode[i+4] = code[r][4];
-        r++;
-    }
-}
 
 void run() {
     int clen = sizeof(code)/sizeof(code[0]);
@@ -130,32 +118,49 @@ void run() {
 
 int main() {
 
-    codetl();
     
     FILE *fp;
-    if ((fp = fopen("a:/mylang/code.bin", "wb+")) == NULL) {
+    if ((fp = fopen("a:/mylang/code.bin", "rb+")) == NULL) {
+        printf("Can't open a file.");
+        return 1;
+    }
+    FILE *fp2;
+    if ((fp2 = fopen("a:/mylang/code2.bin", "wb+")) == NULL) {
         printf("Can't open a file.");
         return 1;
     }
 
-    char endhead[4] = {0,0,0,0};
-    char str[] = "test";
-    fwrite(&str, sizeof(char), sizeof(str), fp);
-    fwrite(&endhead, sizeof(char), 3-(sizeof(str)-1)%4, fp);
-    fwrite(&lcode, sizeof(int), sizeof(code)/sizeof(code[0])*5, fp);
+    int fsize;
+    fpos_t fs;
+    fseek(fp, 0, SEEK_END); // ファイルポインタを末尾へ移動
+    fgetpos(fp, &fs); // ファイルポインタの位置を取得
+    fsize = fs;
+    fseek(fp, 0, SEEK_SET); // ファイルポインタを末尾へ移動
 
-    // int fsize;
-    // if (fseek(fp, 0L, SEEK_END) == 0) {
-    //     fpos_t pos;
-    //     if (fgetpos(fp, &pos) == 0) {
-    //         fsize = (int)pos;
-    //     }
-    // }
+    lcode = (int*)malloc(fsize);
 
-    // printf("file: %d byte\n",fsize);
-    //fread(&a,sizeof(int),fsize)
+    printf("file: %d byte\n",fsize);
+    int head[1];
+    char f = 1;
+    while (f) {
+        fread(head,4,1,fp);
+        if (head[0]==0) {
+            f = 0;
+        }
+        fsize-=4;
+    }
+    fread(lcode,4,fsize/4,fp);
+    
+	printf("%d \n",sizeof(int));
+
+	for (int i=0; i<fsize/4; i++)
+		printf("%d ",lcode[i]);
+	printf("\n");
+
+    fwrite(lcode,4,fsize/4,fp2);
 
     fclose(fp);
+    fclose(fp2);
 
 
     run();
