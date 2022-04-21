@@ -26,7 +26,7 @@ class NLMC {
 
         let label = {};
         let array = Array(256).fill(null);
-        let stack = Array(256).fill(null);
+        let sta = Array(256).fill(null);
         let stp = 0;
 
         let t = this.tokenaize(c);
@@ -81,19 +81,19 @@ class NLMC {
                     register[t[p][1][0]] = register[t[p][1][0]]/register[t[p][1][1]];
                 }
             }
-            else if (t[p][0]=="push") {
+            else if (t[p][0]=="push") { // 6
                 if (numbers.includes(t[p][1][0][0])) {
-                    stack[stp] = Number(t[p][1][0]);
+                    sta[stp] = Number(t[p][1][0]);
                 }
                 else {
-                    stack[stp] = register[t[p][1][0]];
+                    sta[stp] = register[t[p][1][0]];
                 }
                 stp++;
             }
-            else if (t[p][0]=="pop") {
+            else if (t[p][0]=="pop") { // 7
                 stp--;
-                register[t[p][1][0]] = Number(stack[stp]);
-                stack[stp] = null
+                register[t[p][1][0]] = Number(sta[stp]);
+                sta[stp] = null
             }
             else if (t[p][0]=="jmp") {
                 p = label[t[p][1][0]];
@@ -116,7 +116,7 @@ class NLMC {
                     p = label[t[p][1][0]];
                 }
             }
-            // console.log(t[p],register,stack);
+            // console.log(t[p],register,sta);
             p++;
         }
         return register["ret"]
