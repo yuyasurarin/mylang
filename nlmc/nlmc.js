@@ -1,3 +1,4 @@
+// 2022.4 haruki1234
 class NLMC {
     constructor(Code) {
         if (typeof(Code)!="string") {
@@ -11,8 +12,6 @@ class NLMC {
     run() {
         let c = this.code;
 
-        let numbers = ["0","1","2","3","4","5","6","7","8","9"];
-
         let register = {
             "ceq": 0,
             "ret": 0,
@@ -22,6 +21,9 @@ class NLMC {
             "rdi": 0,
             "al": 0,
         };
+        
+        let numbers = ["0","1","2","3","4","5","6","7","8","9"];
+
         let label = {};
         let array = Array(256).fill(null); // スタックの定義 スタックのサイズ
         let stack = Array(256).fill(null); // スタックの定義 スタックのサイズ
