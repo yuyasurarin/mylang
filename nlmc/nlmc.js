@@ -25,15 +25,15 @@ class NLMC {
         let numbers = ["0","1","2","3","4","5","6","7","8","9"];
 
         let label = {};
-        let array = Array(256).fill(null); // スタックの定義 スタックのサイズ
-        let stack = Array(256).fill(null); // スタックの定義 スタックのサイズ
+        let array = Array(256).fill(null);
+        let stack = Array(256).fill(null);
         let stp = 0;
 
         let t = this.tokenaize(c);
         console.log(t);
         let p = 0;
         while (p<t.length) {
-            if (t[p][0]=="label") {
+            if (t[p][0]=="label") { // 0
                 label[t[p][1][0]] = p;
             }
             p++;
@@ -41,7 +41,7 @@ class NLMC {
         // instructions
         p = 0;
         while (p<t.length) {
-            if (t[p][0]=="mov") {
+            if (t[p][0]=="mov") { // 1
                 if (numbers.includes(t[p][1][1][0])) {
                     register[t[p][1][0]] = Number(t[p][1][1]);
                 }
@@ -49,7 +49,7 @@ class NLMC {
                     register[t[p][1][0]] = register[t[p][1][1]];
                 }
             }
-            else if (t[p][0]=="add") {
+            else if (t[p][0]=="add") { // 2
                 if (numbers.includes(t[p][1][1][0])) {
                     register[t[p][1][0]] += Number(t[p][1][1]);
                 }
@@ -57,7 +57,7 @@ class NLMC {
                     register[t[p][1][0]] += register[t[p][1][1]];
                 }
             }
-            else if (t[p][0]=="sub") {
+            else if (t[p][0]=="sub") { // 3
                 if (numbers.includes(t[p][1][1][0])) {
                     register[t[p][1][0]] -= Number(t[p][1][1]);
                 }
@@ -65,7 +65,7 @@ class NLMC {
                     register[t[p][1][0]] -= register[t[p][1][1]];
                 }
             }
-            else if (t[p][0]=="mul") {
+            else if (t[p][0]=="mul") { // 4
                 if (numbers.includes(t[p][1][1][0])) {
                     register[t[p][1][0]] *= Number(t[p][1][1]);
                 }
@@ -73,7 +73,7 @@ class NLMC {
                     register[t[p][1][0]] *= register[t[p][1][1]];
                 }
             }
-            else if (t[p][0]=="div") {
+            else if (t[p][0]=="div") { // 5
                 if (numbers.includes(t[p][1][1][0])) {
                     register[t[p][1][0]] = register[t[p][1][0]]/Number(t[p][1][1]);
                 }
