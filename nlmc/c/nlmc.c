@@ -3,12 +3,12 @@
 #include<stdlib.h>
 
 
-int **code;
 int *lcode;
+int fsize;
 
 
 void run() {
-    int clen = sizeof(code)/sizeof(code[0]);
+    int clen = fsize/4;
 
     // 即値:0, int: 1
 
@@ -22,94 +22,94 @@ void run() {
     int p;
     p = 0;
     while (p<clen) {
-        if (code[p][0]==0) { // label
-            label[code[p][1]] = p;
+        if (lcode[p+0]==0) { // label
+            label[lcode[p+1]] = p;
         }
-        p++;
+        p+=5;
     }
     p = 0;
     while (p<clen) {
-        switch (code[p][0])
+        switch (lcode[p+0])
         {
             case 1: // mov
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        int_var[code[p][3]] = code[p][4];
+                        int_var[lcode[p+3]] = lcode[p+4];
                     break;
                     case 1:
-                        int_var[code[p][3]] = int_var[code[p][4]];
+                        int_var[lcode[p+3]] = int_var[lcode[p+4]];
                     break;
                 }
             break;
             case 2: // add
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        int_var[code[p][3]] += code[p][4];
+                        int_var[lcode[p+3]] += lcode[p+4];
                     break;
                     case 1:
-                        int_var[code[p][3]] += int_var[code[p][4]];
+                        int_var[lcode[p+3]] += int_var[lcode[p+4]];
                     break;
                 }
             break;
             case 3: // sub
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        int_var[code[p][3]] -= code[p][4];
+                        int_var[lcode[p+3]] -= lcode[p+4];
                     break;
                     case 1:
-                        int_var[code[p][3]] -= int_var[code[p][4]];
+                        int_var[lcode[p+3]] -= int_var[lcode[p+4]];
                     break;
                 }
             break;
             case 4: // mul
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        int_var[code[p][3]] *= code[p][4];
+                        int_var[lcode[p+3]] *= lcode[p+4];
                     break;
                     case 1:
-                        int_var[code[p][3]] *= int_var[code[p][4]];
+                        int_var[lcode[p+3]] *= int_var[lcode[p+4]];
                     break;
                 }
             break;
             case 5: // div
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        int_var[code[p][3]] = int_var[code[p][3]]/code[p][4];
+                        int_var[lcode[p+3]] = int_var[lcode[p+3]]/lcode[p+4];
                     break;
                     case 1:
-                        int_var[code[p][3]] = int_var[code[p][3]]/int_var[code[p][4]];
+                        int_var[lcode[p+3]] = int_var[lcode[p+3]]/int_var[lcode[p+4]];
                     break;
                 }
             break;
             case 6: // push
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 0:
-                        sta[stp] = code[p][4];
+                        sta[stp] = lcode[p+4];
                     break;
                     case 1:
-                        sta[stp] = int_var[code[p][4]];
+                        sta[stp] = int_var[lcode[p+4]];
                     break;
                 }
                 stp++;
             break;
             case 7: // pop
                 stp--;
-                switch (code[p][1])
+                switch (lcode[p+1])
                 {
                     case 1:
-                        int_var[code[p][3]] = sta[stp];
+                        int_var[lcode[p+3]] = sta[stp];
                     break;
                 }
             break;
         }
         //printf(": %d\n",int_var[0]);
-        p++;
+        p+=5;
     }
     printf("result: %d",int_var[0]);
     
@@ -130,7 +130,6 @@ int main() {
         return 1;
     }
 
-    int fsize;
     fpos_t fs;
     fseek(fp, 0, SEEK_END); // ファイルポインタを末尾へ移動
     fgetpos(fp, &fs); // ファイルポインタの位置を取得
