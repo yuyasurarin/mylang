@@ -139,22 +139,20 @@ int main() {
     lcode = (int*)malloc(fsize);
 
     printf("file: %d byte\n",fsize);
-    int head[1];
+    char head[4];
     char f = 1;
     while (f) {
-        fread(head,4,1,fp);
+        fread(head,1,4,fp);
         if (head[0]==0) {
             f = 0;
         }
+        else {
+            printf("%s",head);
+        }
         fsize-=4;
     }
+    printf("\n");
     fread(lcode,4,fsize/4,fp);
-    
-	printf("%d \n",sizeof(int));
-
-	for (int i=0; i<fsize/4; i++)
-		printf("%d ",lcode[i]);
-	printf("\n");
 
     fwrite(lcode,4,fsize/4,fp2);
 

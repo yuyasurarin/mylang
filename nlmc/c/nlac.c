@@ -29,7 +29,7 @@ int main() {
         return 1;
     }
     char endhead[8] = {0,0,0,0,0,0,0,0};
-    char str[] = "hello ";
+    char str[] = "nlmc";
     fwrite(&str, sizeof(char), sizeof(str), fp);
     fwrite(&endhead, sizeof(char), 8-(sizeof(str))%4, fp);
     fwrite(&lcode, sizeof(int), sizeof(code)/sizeof(code[0])*5, fp);
