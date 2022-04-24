@@ -13,7 +13,7 @@ class NLMC {
         let c = this.code;
 
         let register = {
-            "ceq": 0,
+            "zf": 0,
             "ret": 0,
 
             "rax": 0,
@@ -100,19 +100,31 @@ class NLMC {
                 let b;
                 if (numbers.includes(t[p][1][1][0])) { b = Number(t[p][1][1]); }
                 else { b = register[t[p][1][1]]; }
-                if (a==b) { register["ceq"] = 1; }
-                else { register["ceq"] = 0; }
+                if (a-b==0) { register["zf"] = 1; }
+                else { register["zf"] = 0; }
+                if (a-b>0) { register["sf"] = 1; }
+                else { register["sf"] = 0; }
             }
             else if (t[p][0]=="jmp") { // 101
                 p = label[t[p][1][0]];
             }
             else if (t[p][0]=="jz") { // 102
-                if (register["ceq"]==1) {
+                if (register["zf"]==1) {
                     p = label[t[p][1][0]];
                 }
             }
             else if (t[p][0]=="jnz") { // 103
-                if (register["ceq"]!=1) {
+                if (register["zf"]!=1) {
+                    p = label[t[p][1][0]];
+                }
+            }
+            else if (t[p][0]=="js") { // 104
+                if (register["sf"]==1) {
+                    p = label[t[p][1][0]];
+                }
+            }
+            else if (t[p][0]=="jns") { // 105
+                if (register["sf"]!=1) {
                     p = label[t[p][1][0]];
                 }
             }

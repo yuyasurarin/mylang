@@ -110,8 +110,10 @@ void run() {
                 switch (lcode[p+1])
                 {
                     case 1:
-                        if (int_var[lcode[p+2]]==int_var[lcode[p+3]]) flag_var[0] = 1;
+                        if (int_var[lcode[p+2]]-int_var[lcode[p+3]]==0) flag_var[0] = 1; // zero flag
                         else flag_var[0] = 0;
+                        if (int_var[lcode[p+2]]-int_var[lcode[p+3]]>0) flag_var[1] = 1; // sign flag
+                        else flag_var[1] = 0;
                     break;
                 }
             break;
@@ -123,6 +125,12 @@ void run() {
             break;
             case 103: // jnz
                 if (flag_var[0]!=1) p = label[lcode[p+1]];
+            break;
+            case 104: // js
+                if (flag_var[1]==1) p = label[lcode[p+1]];
+            break;
+            case 105: // jns
+                if (flag_var[1]!=1) p = label[lcode[p+1]];
             break;
 
             default:

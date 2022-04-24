@@ -113,6 +113,8 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"jmp",cmpr)==0) code[0] = 101;
         else if (strncmp(dst[0],"jz",cmpr)==0) code[0] = 102;
         else if (strncmp(dst[0],"jnz",cmpr)==0) code[0] = 103;
+        else if (strncmp(dst[0],"js",cmpr)==0) code[0] = 104;
+        else if (strncmp(dst[0],"jns",cmpr)==0) code[0] = 105;
         else code[0] = -1;
         
         cmpr = 2;

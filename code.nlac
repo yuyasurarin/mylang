@@ -6,6 +6,7 @@ pop int 2
 pop int 3
 add int 0,2
 add int 0,3
+cmp int 1,0
 add int 0,2
 add int 0,3
 label 0
