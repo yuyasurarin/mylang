@@ -28,25 +28,39 @@ int split(char *dst[], char *src, char delim){
 }
 
 // http://goldilocks-engineering.blogspot.com/2015/09/c.html
+// changed a little
 
 void lntrim(char *str) {  
   int i = 0;  
   while(1) {  
-    if(str[i] == '\n') {  
-      str[i] = '\0';  
+    if(str[i] == '\r') {  
+      str[i] = ',';  
+    }
+    if(str[i] == '\0') {   
       break;  
-    }  
+    }
     i++;  
   }  
 } 
 
-
 //
 
+int exponentiation(int x,int n) {
+    int result = 1;
+    for (int i=0;i<n;i++) {
+        result *= x;
+    }
+    return result;
+}
 int toint(char *str) {
+    int len = strlen(str);
     printf("%s - %d\n",str,strlen(str));
-    int count = 0;
-    return 0;
+    int ret = 0;
+    for (int i=0;i<len;i++) {
+        ret += (str[i]-48)*exponentiation(10,len-i-1);
+    }
+    printf("%d\n",ret);
+    return ret;
 }
 
 int main(int argc,char* argv[]) {
@@ -63,26 +77,26 @@ int main(int argc,char* argv[]) {
         return 1;
     }
     char endhead[8] = {0,0,0,0,0,0,0,0};
-    char str[] = "nlmc0";
+    char str[] = "nlmc ";
     fwrite(&str, sizeof(char), sizeof(str), fp2);
-    fwrite(&endhead, sizeof(char), 8-(sizeof(str))%4, fp2);
+    fwrite(&endhead, sizeof(char), 8-(sizeof(str)+4)%4, fp2);
 
     char *dst[10];
     char *arg[10];
 	char line[maxl];
     while (fgets(line, maxl, fp) != NULL) {
-        //printf("%s ",line);
-        int code[4] = {0,0,0,0};
+        int code[4] = {1,1,0,0};
 
         lntrim(line);
+        printf("%s\n",line);
         int count = split(dst,line,' ');
-        printf("%s\n",dst[0]);
-        printf("%s\n",dst[1]);
-        {
+        // printf("%s\n",dst[0]);
+        // printf("%s\n",dst[1]);
+        // {
             count = split(arg,dst[2],',');
-            printf("%s\n",arg[0]);
-            printf("%s\n",arg[1]);
-        }
+        //     printf("%s\n",arg[0]);
+        //     printf("%s\n",arg[1]);
+        // }
 
         int cmpr = 2;
         if (strncmp(dst[0],"label",cmpr)==0) code[0] = 0;
@@ -96,12 +110,16 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
         else code[0] = 10;
 
-        //toint(arg);
-        //printf("%d\n",code[0]);
+        toint(arg[1]);
+        printf("%d\n",code[0]);
 
         fwrite(&code, sizeof(int), 4, fp2);
     }
     printf("\n");
+
+    
+    int code[4] = {-1,0,0,0};
+    fwrite(&code, sizeof(int), 2, fp2);
 
     int fsize;
     if (fseek(fp2, 0L, SEEK_END) == 0) {
