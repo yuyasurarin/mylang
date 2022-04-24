@@ -6,8 +6,6 @@
 #define maxl 256
 
 
-
-
 // https://qiita.com/fireflower0/items/dc54f3ec1b3698a98b14
 int isDelimiter(char p, char delim){
   return p == delim;
@@ -29,6 +27,28 @@ int split(char *dst[], char *src, char delim){
   return count;
 }
 
+// http://goldilocks-engineering.blogspot.com/2015/09/c.html
+
+void lntrim(char *str) {  
+  int i = 0;  
+  while(1) {  
+    if(str[i] == '\n') {  
+      str[i] = '\0';  
+      break;  
+    }  
+    i++;  
+  }  
+} 
+
+
+//
+
+int toint(char *str) {
+    printf("%s - %d\n",str,strlen(str));
+    int count = 0;
+    return 0;
+}
+
 int main(int argc,char* argv[]) {
 
     
@@ -47,20 +67,21 @@ int main(int argc,char* argv[]) {
     fwrite(&str, sizeof(char), sizeof(str), fp2);
     fwrite(&endhead, sizeof(char), 8-(sizeof(str))%4, fp2);
 
-    char *dst[6];
-    char *arg[4];
+    char *dst[10];
+    char *arg[10];
 	char line[maxl];
     while (fgets(line, maxl, fp) != NULL) {
         //printf("%s ",line);
         int code[4] = {0,0,0,0};
 
+        lntrim(line);
         int count = split(dst,line,' ');
         printf("%s\n",dst[0]);
-        // printf("%s\n",dst[1]);
+        printf("%s\n",dst[1]);
         {
             count = split(arg,dst[2],',');
-            // printf("%s\n",arg[0]);
-            // printf("%s\n",arg[1]);
+            printf("%s\n",arg[0]);
+            printf("%s\n",arg[1]);
         }
 
         int cmpr = 2;
@@ -75,7 +96,8 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
         else code[0] = 10;
 
-        printf("%d\n",code[0]);
+        //toint(arg);
+        //printf("%d\n",code[0]);
 
         fwrite(&code, sizeof(int), 4, fp2);
     }
