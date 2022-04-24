@@ -1,18 +1,19 @@
 // // 2022.4 haruki1234
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 #define maxl 256
+
+
 
 
 // https://qiita.com/fireflower0/items/dc54f3ec1b3698a98b14
 int isDelimiter(char p, char delim){
   return p == delim;
 }
-
 int split(char *dst[], char *src, char delim){
   int count = 0;
-
   for(;;) {
     while (isDelimiter(*src, delim)){
         src++;
@@ -27,7 +28,6 @@ int split(char *dst[], char *src, char delim){
   }
   return count;
 }
-
 
 int main(int argc,char* argv[]) {
 
@@ -51,17 +51,31 @@ int main(int argc,char* argv[]) {
     char *arg[4];
 	char line[maxl];
     while (fgets(line, maxl, fp) != NULL) {
-        printf("%s ",line);
-        int code[5] = {0,0,0,0};
+        //printf("%s ",line);
+        int code[4] = {0,0,0,0};
 
         int count = split(dst,line,' ');
         printf("%s\n",dst[0]);
-        printf("%s\n",dst[1]);
+        // printf("%s\n",dst[1]);
         {
-            int count = split(arg,dst[2],',');
-            printf("%s\n",arg[0]);
-            printf("%s\n",arg[1]);
+            count = split(arg,dst[2],',');
+            // printf("%s\n",arg[0]);
+            // printf("%s\n",arg[1]);
         }
+
+        int cmpr = 2;
+        if (strncmp(dst[0],"label",cmpr)==0) code[0] = 0;
+        else if (strncmp(dst[0],"set",cmpr)==0) code[0] = 1;
+        else if (strncmp(dst[0],"mov",cmpr)==0) code[0] = 2;
+        else if (strncmp(dst[0],"add",cmpr)==0) code[0] = 3;
+        else if (strncmp(dst[0],"sub",cmpr)==0) code[0] = 4;
+        else if (strncmp(dst[0],"mul",cmpr)==0)code[0] = 5;
+        else if (strncmp(dst[0],"div",cmpr)==0) code[0] = 6;
+        else if (strncmp(dst[0],"push",cmpr)==0) code[0] = 7;
+        else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
+        else code[0] = 10;
+
+        printf("%d\n",code[0]);
 
         fwrite(&code, sizeof(int), 4, fp2);
     }
