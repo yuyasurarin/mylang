@@ -34,7 +34,7 @@ void run() {
         printf("%d ", lcode[p+3]);
         printf("%d ", lcode[p+4]);
         printf("%d ", lcode[p+5]);
-        printf("\n\n");
+        printf("\n");
         switch (lcode[p+0])
         {
             case 1: // mov
@@ -117,6 +117,7 @@ void run() {
         //printf(": %d\n",int_var[0]);
         p+=5;
     }
+    printf("\n");
     printf("result: %d",int_var[0]);
     
     return;
@@ -127,11 +128,6 @@ int main() {
     
     FILE *fp;
     if ((fp = fopen("a:/mylang/code.bin", "rb+")) == NULL) {
-        printf("Can't open a file.");
-        return 1;
-    }
-    FILE *fp2;
-    if ((fp2 = fopen("a:/mylang/code2.bin", "wb+")) == NULL) {
         printf("Can't open a file.");
         return 1;
     }
@@ -157,11 +153,7 @@ int main() {
     printf("\n");
     fread(lcode,4,fsize/4,fp);
 
-    fwrite(lcode,4,fsize/4,fp2);
-
     fclose(fp);
-    fclose(fp2);
-
 
     run();
     return 0;
