@@ -34,7 +34,7 @@ void run() {
         printf("%d ", lcode[p+3]);
         printf("%d ", lcode[p+4]);
         printf("%d ", lcode[p+5]);
-        printf("\n");
+        printf("\n\n");
         switch (lcode[p+0])
         {
             case 1: // mov
@@ -48,7 +48,7 @@ void run() {
                     break;
                 }
             break;
-            case 2: // add
+            case 3: // add
                 switch (lcode[p+1])
                 {
                     case 0:
@@ -59,7 +59,7 @@ void run() {
                     break;
                 }
             break;
-            case 3: // sub
+            case 4: // sub
                 switch (lcode[p+1])
                 {
                     case 0:
@@ -70,7 +70,7 @@ void run() {
                     break;
                 }
             break;
-            case 4: // mul
+            case 5: // mul
                 switch (lcode[p+1])
                 {
                     case 0:
@@ -81,7 +81,7 @@ void run() {
                     break;
                 }
             break;
-            case 5: // div
+            case 6: // div
                 switch (lcode[p+1])
                 {
                     case 0:
@@ -92,7 +92,7 @@ void run() {
                     break;
                 }
             break;
-            case 6: // push
+            case 7: // push
                 switch (lcode[p+1])
                 {
                     case 0:
@@ -104,7 +104,7 @@ void run() {
                 }
                 stp++;
             break;
-            case 7: // pop
+            case 8: // pop
                 stp--;
                 switch (lcode[p+1])
                 {
