@@ -95,10 +95,7 @@ class NLMC {
                 register[t[p][1][0]] = Number(sta[stp]);
                 sta[stp] = null
             }
-            else if (t[p][0]=="jmp") {
-                p = label[t[p][1][0]];
-            }
-            else if (t[p][0]=="cmp") {
+            else if (t[p][0]=="cmp") { // 100
                 let a = register[t[p][1][0]];
                 let b;
                 if (numbers.includes(t[p][1][1][0])) { b = Number(t[p][1][1]); }
@@ -106,12 +103,15 @@ class NLMC {
                 if (a==b) { register["ceq"] = 1; }
                 else { register["ceq"] = 0; }
             }
-            else if (t[p][0]=="jz") {
+            else if (t[p][0]=="jmp") { // 101
+                p = label[t[p][1][0]];
+            }
+            else if (t[p][0]=="jz") { // 102
                 if (register["ceq"]==1) {
                     p = label[t[p][1][0]];
                 }
             }
-            else if (t[p][0]=="jnz") {
+            else if (t[p][0]=="jnz") { // 103
                 if (register["ceq"]!=1) {
                     p = label[t[p][1][0]];
                 }

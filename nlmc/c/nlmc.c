@@ -1,6 +1,7 @@
 // // 2022.4 haruki1234
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 
 int *lcode;
@@ -11,6 +12,8 @@ void run() {
     int clen = (fsize-5)/4;
 
     // 即値:0, int: 1
+
+    char flag_var[256];
 
     int int_var[256];
     int int_sta[256];
@@ -102,6 +105,26 @@ void run() {
                     break;
                 }
             break;
+            
+            case 100: // cmp
+                switch (lcode[p+1])
+                {
+                    case 1:
+                        if (int_var[lcode[p+2]]==int_var[lcode[p+3]]) flag_var[0] = 1;
+                        else flag_var[0] = 0;
+                    break;
+                }
+            break;
+            case 101: // jmp
+                p = label[lcode[p+1]];
+            break;
+            case 102: // jz
+                if (flag_var[0]==1) p = label[lcode[p+1]];
+            break;
+            case 103: // jnz
+                if (flag_var[0]!=1) p = label[lcode[p+1]];
+            break;
+
             default:
             break;
         }
@@ -115,6 +138,8 @@ void run() {
 }
 
 int main(int argc,char* argv[]) {
+    clock_t sc = clock();
+    time_t st = time(NULL);
     
     FILE *fp;
     if ((fp = fopen(argv[1], "rb+")) == NULL) {
@@ -154,5 +179,11 @@ int main(int argc,char* argv[]) {
     fclose(fp);
 
     run();
+
+    time_t et = time(NULL);
+    clock_t ec = clock();
+    
+    printf("time: %d\n",et-st);
+    printf("time: %f\n",ec-sc);
     return 0;
 }

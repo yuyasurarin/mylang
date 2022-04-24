@@ -1,7 +1,9 @@
 // // 2022.4 haruki1234
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<time.h>
 
 #define maxl 256
 
@@ -50,7 +52,7 @@ void lntrim(char *str) {
     int i = 0;
     while(1) {
         if(str[i] == '\r') {
-            str[i] = ',';
+            str[i] = '\0';
         }
         if(str[i] == '\0') {
             break;
@@ -60,7 +62,8 @@ void lntrim(char *str) {
 }
 
 int main(int argc,char* argv[]) {
-
+    clock_t sc = clock();
+    time_t st = time(NULL);
     
     FILE *fp;
     if ((fp = fopen(argv[1], "rb+")) == NULL) {
@@ -72,14 +75,16 @@ int main(int argc,char* argv[]) {
         printf("Can't open a file. : %s",argv[2]);
         return 1;
     }
+    char str[1024];
+    sprintf(str,"%s %s\n %s","nlmc",argv[1],ctime(&st));
+
     char endhead[8] = {0,0,0,0,0,0,0,0};
-    char str[] = "nlmc0";
-    fwrite(&str, sizeof(char), sizeof(str), fp2);
-    if ((sizeof(str)-1)%4==0) {
-        fwrite(&endhead, sizeof(char), 3, fp2);
+    fwrite(&str, sizeof(char), strlen(str), fp2);
+    if (strlen(str)%4==0) {
+        fwrite(&endhead, sizeof(char), 4, fp2);
     }
     else {
-        fwrite(&endhead, sizeof(char), 7-(sizeof(str)-1)%4, fp2);
+        fwrite(&endhead, sizeof(char), 8-(strlen(str))%4, fp2);
     }
 
     char *dst[10];
@@ -87,16 +92,12 @@ int main(int argc,char* argv[]) {
 	char line[maxl];
     while (fgets(line, maxl, fp) != NULL) {
         int code[4] = {1,1,0,0};
-
         lntrim(line);
+        if (strlen(line)<1||line[0]==';') {
+            continue;
+        }
         int count = split(dst,line,' ');
-        // printf("%s\n",dst[0]);
-        // printf("%s\n",dst[1]);
-        // {
-            count = split(arg,dst[2],',');
-        //     printf("%s\n",arg[0]);
-        //     printf("%s\n",arg[1]);
-        // }
+        count = split(arg,dst[2],',');
 
         int cmpr = 2;
         if (strncmp(dst[0],"label",cmpr)==0) code[0] = 0;
@@ -108,11 +109,15 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"div",cmpr)==0) code[0] = 6;
         else if (strncmp(dst[0],"push",cmpr)==0) code[0] = 7;
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
+        else if (strncmp(dst[0],"cmp",cmpr)==0) code[0] = 100;
+        else if (strncmp(dst[0],"jmp",cmpr)==0) code[0] = 101;
+        else if (strncmp(dst[0],"jz",cmpr)==0) code[0] = 102;
+        else if (strncmp(dst[0],"jnz",cmpr)==0) code[0] = 103;
         else code[0] = -1;
         
         cmpr = 2;
         if (strncmp(dst[1],"int",cmpr)==0) code[1] = 1;
-        else code[0] = -1;
+        else code[1] = toint(dst[1]);
 
         code[2] = toint(arg[0]);
         code[3] = toint(arg[1]);
@@ -136,6 +141,13 @@ int main(int argc,char* argv[]) {
     printf("file: %d byte\n",fsize);
 
     fclose(fp2);
+
+    time_t et = time(NULL);
+    clock_t ec = clock();
+    
+    printf("time: %d\n",et-st);
+    printf("time: %f\n",ec-sc);
+
 
     return 0;
 }
