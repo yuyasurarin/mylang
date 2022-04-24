@@ -8,7 +8,7 @@ int fsize;
 
 
 void run() {
-    int clen = fsize/4;
+    int clen = fsize/5;
 
     // 即値:0, int: 1
 
@@ -29,6 +29,12 @@ void run() {
     }
     p = 0;
     while (p<clen) {
+        printf("%d ", lcode[p+0]);
+        printf("%d ", lcode[p+1]);
+        printf("%d ", lcode[p+3]);
+        printf("%d ", lcode[p+4]);
+        printf("%d ", lcode[p+5]);
+        printf("\n");
         switch (lcode[p+0])
         {
             case 1: // mov
@@ -145,9 +151,6 @@ int main() {
         fread(head,1,4,fp);
         if (head[0]==0) {
             f = 0;
-        }
-        else {
-            printf("%s",head);
         }
         fsize-=4;
     }
