@@ -13,8 +13,8 @@ void run() {
     // 即値:0, int: 1
 
     int int_var[256];
-    int sta[256];
-    int stp = 0;
+    int int_sta[256];
+    int int_stp = 0;
     int label[256];
 
     int_var[0] = 0;
@@ -22,18 +22,18 @@ void run() {
     int p;
     p = 0;
     while (p<clen) {
-        if (lcode[p+0]==0) { // label
-            label[lcode[p+1]] = p;
-        }
-        p+=5;
-    }
-    p = 0;
-    while (p<clen) {
         printf("%d ", lcode[p+0]);
         printf("%d ", lcode[p+1]);
         printf("%d ", lcode[p+2]);
         printf("%d ", lcode[p+3]);
         printf("\n");
+        if (lcode[p+0]==0) { // label
+            label[lcode[p+1]] = p;
+        }
+        p+=4;
+    }
+    p = 0;
+    while (p<clen) {
         switch (lcode[p+0])
         {
             case 1: // set
@@ -88,17 +88,17 @@ void run() {
                 switch (lcode[p+1])
                 {
                     case 1:
-                        sta[stp] = int_var[lcode[p+2]];
+                        int_sta[int_stp] = int_var[lcode[p+2]];
+                        int_stp++;
                     break;
                 }
-                stp++;
             break;
             case 8: // pop
-                stp--;
                 switch (lcode[p+1])
                 {
                     case 1:
-                        int_var[lcode[p+2]] = sta[stp];
+                        int_stp--;
+                        int_var[lcode[p+2]] = int_sta[int_stp];
                     break;
                 }
             break;
@@ -108,6 +108,7 @@ void run() {
         //printf(": %d\n",int_var[0]);
         p+=4;
     }
+    printf("\n");
     printf("result: %d\n",int_var[0]);
     
     return;
@@ -120,6 +121,7 @@ int main(int argc,char* argv[]) {
         printf("Can't open a file. : %s",argv[1]);
         return 1;
     }
+    printf("file : %s",argv[1]);
 
     fpos_t fs;
     fseek(fp, 0, SEEK_END); // ファイルポインタを末尾へ移動
@@ -129,9 +131,10 @@ int main(int argc,char* argv[]) {
 
     lcode = (int*)malloc(fsize);
 
-    printf("file: %d byte\n",fsize);
+    printf(" , %d byte\n",fsize);
 
-    char head[4];
+    printf("\n");
+    char head[5];
     char f = 1;
     while (f) {
         fread(head,1,4,fp);
@@ -140,7 +143,11 @@ int main(int argc,char* argv[]) {
             f = 0;
             break;
         }
+        else {
+            printf("%s",head);
+        }
     }
+    printf("\n");
     printf("\n");
     fread(lcode,4,fsize/sizeof(int),fp);
 

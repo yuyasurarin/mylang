@@ -27,22 +27,6 @@ int split(char *dst[], char *src, char delim){
   return count;
 }
 
-// http://goldilocks-engineering.blogspot.com/2015/09/c.html
-// changed a little
-
-void lntrim(char *str) {  
-  int i = 0;  
-  while(1) {  
-    if(str[i] == '\r') {  
-      str[i] = ',';  
-    }
-    if(str[i] == '\0') {   
-      break;  
-    }
-    i++;  
-  }  
-} 
-
 //
 
 int exponentiation(int x,int n) {
@@ -54,13 +38,25 @@ int exponentiation(int x,int n) {
 }
 int toint(char *str) {
     int len = strlen(str);
-    printf("%s - %d\n",str,strlen(str));
     int ret = 0;
     for (int i=0;i<len;i++) {
-        ret += (str[i]-48)*exponentiation(10,len-i-1);
+        if ((str[i]-48)>0&&(str[i]-48)<10) {
+            ret += (str[i]-48)*exponentiation(10,len-i-1);
+        }
     }
-    printf("%d\n",ret);
     return ret;
+}
+void lntrim(char *str) {
+    int i = 0;
+    while(1) {
+        if(str[i] == '\r') {
+            str[i] = ',';
+        }
+        if(str[i] == '\0') {
+            break;
+        }
+        i++;
+    }
 }
 
 int main(int argc,char* argv[]) {
@@ -77,9 +73,14 @@ int main(int argc,char* argv[]) {
         return 1;
     }
     char endhead[8] = {0,0,0,0,0,0,0,0};
-    char str[] = "nlmc ";
+    char str[] = "nlmc0";
     fwrite(&str, sizeof(char), sizeof(str), fp2);
-    fwrite(&endhead, sizeof(char), 8-(sizeof(str)+4)%4, fp2);
+    if ((sizeof(str)-1)%4==0) {
+        fwrite(&endhead, sizeof(char), 3, fp2);
+    }
+    else {
+        fwrite(&endhead, sizeof(char), 7-(sizeof(str)-1)%4, fp2);
+    }
 
     char *dst[10];
     char *arg[10];
@@ -88,7 +89,6 @@ int main(int argc,char* argv[]) {
         int code[4] = {1,1,0,0};
 
         lntrim(line);
-        printf("%s\n",line);
         int count = split(dst,line,' ');
         // printf("%s\n",dst[0]);
         // printf("%s\n",dst[1]);
@@ -108,10 +108,14 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"div",cmpr)==0) code[0] = 6;
         else if (strncmp(dst[0],"push",cmpr)==0) code[0] = 7;
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
-        else code[0] = 10;
+        else code[0] = -1;
+        
+        cmpr = 2;
+        if (strncmp(dst[1],"int",cmpr)==0) code[1] = 1;
+        else code[0] = -1;
 
-        toint(arg[1]);
-        printf("%d\n",code[0]);
+        code[2] = toint(arg[0]);
+        code[3] = toint(arg[1]);
 
         fwrite(&code, sizeof(int), 4, fp2);
     }
