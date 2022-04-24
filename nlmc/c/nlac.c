@@ -3,36 +3,26 @@
 #include<stdlib.h>
 
 
-int code[][5] = {{1,0,0,0,0},{3,0,0,0,5},{7,0,0,0,2},{8,1,0,1,0},{5,1,0,0,1}};
-int lcode[1024];
+int main(int argc,char* argv[]) {
 
-void codetl() {
-    int r = 0;
-    while (r<sizeof(code)/sizeof(code[0])) {
-        int i = r*5;
-        lcode[i+0] = code[r][0];
-        lcode[i+1] = code[r][1];
-        lcode[i+2] = code[r][2];
-        lcode[i+3] = code[r][3];
-        lcode[i+4] = code[r][4];
-        r++;
-    }
-}
-
-int main() {
-
-    codetl();
     
     FILE *fp;
-    if ((fp = fopen("a:/mylang/code.bin", "wb+")) == NULL) {
-        printf("Can't open a file.");
+    if ((fp = fopen(argv[2], "wb+")) == NULL) {
+        printf("Can't open a file. : %s",argv[2]);
         return 1;
     }
     char endhead[8] = {0,0,0,0,0,0,0,0};
     char str[] = "nlmc0";
     fwrite(&str, sizeof(char), sizeof(str), fp);
     fwrite(&endhead, sizeof(char), 8-(sizeof(str))%4, fp);
-    fwrite(&lcode, sizeof(int), sizeof(code)/sizeof(code[0])*5, fp);
+
+
+    int r = 0;
+    while (r<100) {
+        int code[5] = {0,0,0,0};
+        fwrite(&code, sizeof(int), 4, fp);
+        r++;
+    }
 
     int fsize;
     if (fseek(fp, 0L, SEEK_END) == 0) {

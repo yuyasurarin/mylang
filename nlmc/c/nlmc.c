@@ -8,7 +8,7 @@ int fsize;
 
 
 void run() {
-    int clen = fsize/5;
+    int clen = fsize/4;
 
     // 即値:0, int: 1
 
@@ -29,77 +29,66 @@ void run() {
     }
     p = 0;
     while (p<clen) {
-        printf("%d ", lcode[p+0]);
-        printf("%d ", lcode[p+1]);
-        printf("%d ", lcode[p+3]);
-        printf("%d ", lcode[p+4]);
-        printf("%d ", lcode[p+5]);
-        printf("\n");
+        // printf("%d ", lcode[p+0]);
+        // printf("%d ", lcode[p+1]);
+        // printf("%d ", lcode[p+2]);
+        // printf("%d ", lcode[p+3]);
+        // printf("\n");
         switch (lcode[p+0])
         {
-            case 1: // mov
+            case 1: // set
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        int_var[lcode[p+3]] = lcode[p+4];
-                    break;
                     case 1:
-                        int_var[lcode[p+3]] = int_var[lcode[p+4]];
+                        int_var[lcode[p+2]] = lcode[p+3];
+                    break;
+                }
+            break;
+            case 2: // mov
+                switch (lcode[p+1])
+                {
+                    case 1:
+                        int_var[lcode[p+2]] = int_var[lcode[p+3]];
                     break;
                 }
             break;
             case 3: // add
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        int_var[lcode[p+3]] += lcode[p+4];
-                    break;
                     case 1:
-                        int_var[lcode[p+3]] += int_var[lcode[p+4]];
+                        int_var[lcode[p+2]] += int_var[lcode[p+3]];
                     break;
                 }
             break;
             case 4: // sub
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        int_var[lcode[p+3]] -= lcode[p+4];
-                    break;
                     case 1:
-                        int_var[lcode[p+3]] -= int_var[lcode[p+4]];
+                        int_var[lcode[p+2]] -= int_var[lcode[p+3]];
                     break;
                 }
             break;
             case 5: // mul
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        int_var[lcode[p+3]] *= lcode[p+4];
-                    break;
                     case 1:
-                        int_var[lcode[p+3]] *= int_var[lcode[p+4]];
+                        int_var[lcode[p+2]] *= int_var[lcode[p+3]];
                     break;
                 }
             break;
             case 6: // div
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        int_var[lcode[p+3]] = int_var[lcode[p+3]]/lcode[p+4];
-                    break;
                     case 1:
-                        int_var[lcode[p+3]] = int_var[lcode[p+3]]/int_var[lcode[p+4]];
+                        int_var[lcode[p+2]] = int_var[lcode[p+2]]/int_var[lcode[p+3]];
                     break;
                 }
             break;
             case 7: // push
                 switch (lcode[p+1])
                 {
-                    case 0:
-                        sta[stp] = lcode[p+4];
-                    break;
                     case 1:
-                        sta[stp] = int_var[lcode[p+4]];
+                        sta[stp] = int_var[lcode[p+2]];
                     break;
                 }
                 stp++;
@@ -109,26 +98,24 @@ void run() {
                 switch (lcode[p+1])
                 {
                     case 1:
-                        int_var[lcode[p+3]] = sta[stp];
+                        int_var[lcode[p+2]] = sta[stp];
                     break;
                 }
             break;
         }
         //printf(": %d\n",int_var[0]);
-        p+=5;
+        p+=4;
     }
-    printf("\n");
-    printf("result: %d",int_var[0]);
+    printf("result: %d\n",int_var[0]);
     
     return;
 }
 
-int main() {
-
+int main(int argc,char* argv[]) {
     
     FILE *fp;
-    if ((fp = fopen("a:/mylang/code.bin", "rb+")) == NULL) {
-        printf("Can't open a file.");
+    if ((fp = fopen(argv[1], "rb+")) == NULL) {
+        printf("Can't open a file. : %s",argv[1]);
         return 1;
     }
 
@@ -141,6 +128,7 @@ int main() {
     lcode = (int*)malloc(fsize);
 
     printf("file: %d byte\n",fsize);
+
     char head[4];
     char f = 1;
     while (f) {
@@ -151,7 +139,7 @@ int main() {
         fsize-=4;
     }
     printf("\n");
-    fread(lcode,4,fsize/4,fp);
+    fread(lcode,4,fsize/sizeof(int),fp);
 
     fclose(fp);
 
