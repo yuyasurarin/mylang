@@ -4,33 +4,89 @@
         <title>NLC editor</title>
     </head>
     <body>
-        <textarea id="input"></textarea><br>
-        <img id="output" style="width: 50%;image-rendering: pixelated;">
+        <div>
+            font size
+            <button onclick="showsize++">↑</button>
+            <button onclick="if(showsize>1)showsize--">↓</button>
+        </div>
+        <div>
+            scroll
+            <button onclick="if(yscroll>1)yscroll--">↑</button>
+            <button onclick="yscroll++">↓</button>
+        </div>
+        <textarea id="input" style="width: calc(100vw - 50px);"></textarea><br>
+        <img id="output" style="image-rendering: pixelated;width: calc(100vw - 50px);">
     </body>
 </html>
 <script>
-letters = {"a":[0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0],"b":[0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,0],"c":[0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0]}
-function mkimg(x,y) {
+var showsize = 9
+var yscroll = 0
+letters = {"notfound":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"a":[0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0],"b":[0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,0],"c":[0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0],"d":[0,0,1,0,0,1,1,0,0,1,0,0,0,0,1,0],"e":[0,0,0,0,0,1,0,0,0,0,1,1],"f":[0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0],"g":[0,0,1,0,0,1,0,0,0,1,0,1,0,0,1],"h":[0,1,0,0,0,0,1,0,0,0,1,1,0,0,1],"i":[0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0],"j":[0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0],"k":[0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,0],"l":[0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0],"m":[0,0,0,0,0,0,1,0,0,1,1,1,0,1,0,0],"n":[0,0,0,0,0,1,1,0,0,1,0,1,0,0,0,0],"o":[0,0,1,0,0,0,1,0,0,1,0,1,0,0,1,0],"p":[0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0],"q":[0,1,1,0,0,1,0,0,0,0,1,0,0,0,1,0],"r":[0,0,0,0,0,0,0,1,0,1,1,0,0,1,0,0],"s":[0,0,0,0,0,0,1,1,0,1,0,0,0,1,1,0],"t":[0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0],"u":[0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0],"v":[0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0],"w":[0,0,0,0,0,0,0,1,0,0,1,1,0,1,1,0],"x":[0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0],"y":[0,0,0,0,0,1,0,1,0,1,1,0,0,1,0,0],"z":[0,1,0,0,0,0,1,0,0,0,1,0,0,1,1,0],"ä":[0,1,1,1,0,0,1,0,0,1,0,1,0,0,0,0],"ü":[0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0],"ö":[0,1,1,1,0,0,1,0,0,1,0,1,0,0,1,0],".":[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],",":[0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0],"!":[0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0],"?":[0,1,1,0,0,0,0,1,0,0,1,0,0,0,1,0],"'":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'"':[0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0],":":[0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],";":[0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0],"/":[0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0],"\\":[0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0]}
+function mkimg(x,y,mt=0,ml=0) {
+    x = Math.floor(x);y = Math.floor(y);
     let iarr = new Uint8ClampedArray(x*y*4);
     for (let iy = 0; iy < y; iy++) {
         for (let ix = 0; ix < x; ix++) {
             let index = (iy*x+ix)*4; // index of position [ix,iy]
-            iarr[index+0] = 200; // Red
-            iarr[index+1] = 200; // Green
-            iarr[index+2] = 200; // Blue
-            iarr[index+3] = 250; // Alpha
+            iarr[index+0] = 255; // Red
+            iarr[index+1] = 255; // Green
+            iarr[index+2] = 255; // Blue
+            iarr[index+3] = 255; // Alpha
         }
     }
+    let mpn = Math.floor(x/4-1)-ml
+    let fc = [100,100,100,250] // font color
     {
-        let line = 0;
-        let cnt = 0;
+        let li = Math.floor(Math.max(-yscroll,0));
+        let pn = 0;
         text = document.getElementById("input").value;
         for (let i=0;i<text.length;i++) {
+            if (text[i]!="\n") {
+                //console.log(text[i])
+                if (mpn<pn) {
+                    pn=0;
+                    li++;
+                }
+                if (text[i]!=text[i].toLowerCase()) {
+                    let p = ((li*6+mt)*x+pn*4+ml)*4;
+                        iarr[p+0] = 0; // Red
+                        iarr[p+1] = 0; // Green
+                        iarr[p+2] = 0; // Blue
+                        iarr[p+3] = 255; // Alpha
+                }
+                let t = letters[text[i].toLowerCase()]
+                if (t!=null) {
+                }
+                else {
+                    t = letters["notfound"]
+                }
+                for (let cx=0;cx<4;cx++) {
+                    for (let cy=0;cy<4;cy++) {
+                        let p = ((cy+li*6+mt)*x+cx+pn*4+ml)*4;
+                        if (t[cy*4+cx]==1) {
+                            iarr[p+0] = 0; // Red
+                            iarr[p+1] = 0; // Green
+                            iarr[p+2] = 0; // Blue
+                            iarr[p+3] = 255; // Alpha
+                        }
+                    }
+                }
+                pn++;
+            }
+            else {
+                pn=0;
+                li++;
+            }
         }
     }
     let co = document.createElement("canvas");
     co.height=y;co.width=x;co.getContext('2d').putImageData(new ImageData(iarr,x,y),0,0);
     document.getElementById("output").src = co.toDataURL('image/png');
 }
-mkimg(100,100)
+function show() {
+    output = document.getElementById("output").getBoundingClientRect()
+    mkimg((window.innerWidth-50)/showsize,(window.innerHeight-output.top-20)/showsize,1,1)
+}
+show()
+setInterval(show,10)
 </script>
