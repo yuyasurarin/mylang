@@ -4,15 +4,15 @@
         <title>NLC editor</title>
     </head>
     <body>
-        <div>
-            font size
-            <button onclick="showsize++">↑</button>
-            <button onclick="if(showsize>1)showsize--">↓</button>
+        <div class="notselectable">
+            font size<br>
+            <button onclick="showsize++" class="button">↑</button>
+            <button onclick="if(showsize>1)showsize--" class="button">↓</button>
         </div>
-        <div>
-            scroll
-            <button onclick="if(yscroll>1)yscroll--">↑</button>
-            <button onclick="yscroll++">↓</button>
+        <div class="notselectable">
+            scroll<br>
+            <button onclick="if(yscroll>0)yscroll--" class="button">↑</button>
+            <button onclick="yscroll++" class="button">↓</button>
         </div>
         <textarea id="input" style="width: calc(100vw - 50px);"></textarea><br>
         <img id="output" style="image-rendering: pixelated;width: calc(100vw - 50px);">
@@ -37,7 +37,7 @@ function mkimg(x,y,mt=0,ml=0) {
     let mpn = Math.floor(x/4-1)-ml
     let fc = [100,100,100,250] // font color
     {
-        let li = Math.floor(Math.max(-yscroll,0));
+        let li = Math.floor(Math.min(-yscroll,0));
         let pn = 0;
         text = document.getElementById("input").value;
         for (let i=0;i<text.length;i++) {
@@ -90,3 +90,15 @@ function show() {
 show()
 setInterval(show,10)
 </script>
+<style>
+    .notselectable {
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .button {
+        padding: 1px 15px 1px 15px;
+    }
+</style>
