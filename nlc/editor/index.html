@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NLC editor</title>
+    </head>
+    <body>
+        <textarea id="input"></textarea><br>
+        <img id="output" style="width: 50%;image-rendering: pixelated;">
+    </body>
+</html>
+<script>
+letters = {"a":[0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0],"b":[0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,0],"c":[0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0]}
+function mkimg(x,y) {
+    let iarr = new Uint8ClampedArray(x*y*4);
+    for (let iy = 0; iy < y; iy++) {
+        for (let ix = 0; ix < x; ix++) {
+            let index = (iy*x+ix)*4; // index of position [ix,iy]
+            iarr[index+0] = 200; // Red
+            iarr[index+1] = 200; // Green
+            iarr[index+2] = 200; // Blue
+            iarr[index+3] = 250; // Alpha
+        }
+    }
+    {
+        let line = 0;
+        let cnt = 0;
+        text = document.getElementById("input").value;
+        for (let i=0;i<text.length;i++) {
+        }
+    }
+    let co = document.createElement("canvas");
+    co.height=y;co.width=x;co.getContext('2d').putImageData(new ImageData(iarr,x,y),0,0);
+    document.getElementById("output").src = co.toDataURL('image/png');
+}
+mkimg(100,100)
+</script>
