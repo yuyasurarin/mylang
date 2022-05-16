@@ -10,7 +10,7 @@ S tu V (SはV)
 S tu V to O (SはOをV)  
 ## 二重他動詞
 -- 主語と2つの目的語をとる  
-S tu V to O1 te O2 (SはO1をO2にV)  
+S tu V to O1 ti O2 (SはO1をO2にV)  
   
 # 
 前置修飾
