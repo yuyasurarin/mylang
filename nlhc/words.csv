@@ -17,6 +17,9 @@ guhitisi,,名詞,一般名詞,挨拶,
 bihanasi,,名詞,一般名詞,朝,
 tihonugusi,,名詞,一般名詞,昼
 nihutasi,,名詞,一般名詞,夜,
+godotu bihanasi,godotu bihanasi,熟語,熟語,おはようございます,
+godotu tihonugusi,godotu tihonugusi,熟語,熟語,こんにちは,
+godotu nihutasi,godotu nihutasi,熟語,熟語,こんばんわ,
 numumasinusi,numu-masinu_si,名詞,一般名詞,計算機,
 danusi,,名詞,一般名詞,電気,
 kohusi,,名詞,一般名詞,光,
@@ -51,7 +54,7 @@ notu,,形容詞,形容詞,無い,
 hatitu,,形容詞,形容詞,速い,
 gunatu,,形容詞,形容詞,大きい,
 tanotu,,形容詞,形容詞,楽しい,
-gotu,,形容詞,形容詞,良い,
+godotu,,形容詞,形容詞,良い,
 pasa,,数詞,2進数詞,0
 gosa,,数詞,2進数詞,1
 misa,,数詞,4進数詞,2
