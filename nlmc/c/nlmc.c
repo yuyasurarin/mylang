@@ -105,32 +105,33 @@ void run() {
                     break;
                 }
             break;
-            
-            case 100: // cmp
-                switch (lcode[p+1])
-                {
-                    case 1:
-                        if (int_var[lcode[p+2]]-int_var[lcode[p+3]]==0) flag_var[0] = 1; // zero flag
-                        else flag_var[0] = 0;
-                        if (int_var[lcode[p+2]]-int_var[lcode[p+3]]>0) flag_var[1] = 1; // sign flag
-                        else flag_var[1] = 0;
-                    break;
-                }
-            break;
-            case 101: // jmp
+            case 9: // jmp
                 p = label[lcode[p+1]];
             break;
-            case 102: // jz
-                if (flag_var[0]==1) p = label[lcode[p+1]];
+
+            case 100: // equ
+                if (int_var[lcode[p+2]]==int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
             break;
-            case 103: // jnz
-                if (flag_var[0]!=1) p = label[lcode[p+1]];
+            case 101: // nequ
+                if (int_var[lcode[p+2]]!=int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
             break;
-            case 104: // js
-                if (flag_var[1]==1) p = label[lcode[p+1]];
+            case 102: // gtr
+                if (int_var[lcode[p+2]]>int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
             break;
-            case 105: // jns
-                if (flag_var[1]!=1) p = label[lcode[p+1]];
+            case 103: // les
+                if (int_var[lcode[p+2]]<int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
+            break;
+            case 104: // geq
+                if (int_var[lcode[p+2]]>=int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
+            break;
+            case 105: // leq
+                if (int_var[lcode[p+2]]<=int_var[lcode[p+3]]) flag_var[1] = 0;
+                else flag_var[1] = 1;
             break;
 
             default:

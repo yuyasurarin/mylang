@@ -103,18 +103,19 @@ int main(int argc,char* argv[]) {
         if (strncmp(dst[0],"label",cmpr)==0) code[0] = 0;
         else if (strncmp(dst[0],"set",cmpr)==0) code[0] = 1;
         else if (strncmp(dst[0],"mov",cmpr)==0) code[0] = 2;
-        else if (strncmp(dst[0],"add",cmpr)==0) code[0] = 3;
-        else if (strncmp(dst[0],"sub",cmpr)==0) code[0] = 4;
-        else if (strncmp(dst[0],"mul",cmpr)==0)code[0] = 5;
-        else if (strncmp(dst[0],"div",cmpr)==0) code[0] = 6;
+        else if (strncmp(dst[0],"add",cmpr)==0) code[0] = 3; // 加算
+        else if (strncmp(dst[0],"sub",cmpr)==0) code[0] = 4; // 減算
+        else if (strncmp(dst[0],"mul",cmpr)==0)code[0] = 5; // 乗算
+        else if (strncmp(dst[0],"div",cmpr)==0) code[0] = 6; // 除算
         else if (strncmp(dst[0],"push",cmpr)==0) code[0] = 7;
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
-        else if (strncmp(dst[0],"cmp",cmpr)==0) code[0] = 100;
-        else if (strncmp(dst[0],"jmp",cmpr)==0) code[0] = 101;
-        else if (strncmp(dst[0],"jz",cmpr)==0) code[0] = 102;
-        else if (strncmp(dst[0],"jnz",cmpr)==0) code[0] = 103;
-        else if (strncmp(dst[0],"js",cmpr)==0) code[0] = 104;
-        else if (strncmp(dst[0],"jns",cmpr)==0) code[0] = 105;
+        else if (strncmp(dst[0],"jmp",cmpr)==0) code[0] = 9;
+        else if (strncmp(dst[0],"equ",cmpr)==0) code[0] = 100; // 等しい ==
+        else if (strncmp(dst[0],"nequ",cmpr)==0) code[0] = 101; // 等しくない !=
+        else if (strncmp(dst[0],"gtr",cmpr)==0) code[0] = 102; // より大きい >
+        else if (strncmp(dst[0],"les",cmpr)==0) code[0] = 103; // より小さい <
+        else if (strncmp(dst[0],"geq",cmpr)==0) code[0] = 104; // 以上 >=
+        else if (strncmp(dst[0],"leq",cmpr)==0) code[0] = 105; // 以下 <=
         else code[0] = -1;
         
         cmpr = 2;
