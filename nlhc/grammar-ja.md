@@ -6,7 +6,7 @@
 S tu ta O. (SはOです)  
 ## 自動詞
 -- 主のみをとる  
-S tu V. (SはV)  
+Stu V. (SはV)  
 ## 他動詞
 -- 主と対象をとる  
 S tu V to O. (SはOをV)  
@@ -25,6 +25,14 @@ S tu V to O1 ti O2. (SはO1をO2にV)
 基本的に全て小文字  
 固有名詞等の一文字目は大文字  
 単語と単語の間はスペースで区切る  
+
+# 文字
+15種類の表音文字を使う
+a b d g h i k m n o p s t u z
+に対応する
+
+子音字: k g s z p b t d m n h
+母音字: a i u o
 
 # note 
 前置修飾  
