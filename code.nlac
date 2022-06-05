@@ -1,11 +1,12 @@
-; set int 0,0
-; set int 1,30
-; set int 2,1
-; add int 0,2
-set int 0,0
-set int 1,1
-set int 2,10
+set int 4,10 ; 2^x
+set int 0,1 ; 結果
+set int 1,1 ; 定数1
+set int 2,2 ; 定数2
+set int 3,0 ; カウンタ
 label 1
-add int 0,1
-les int 0,2
-jpc 1
+geq int 3,4
+jpc 2
+add int 3,1
+mul int 0,2
+jmp 1
+label 2

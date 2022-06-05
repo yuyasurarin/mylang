@@ -152,7 +152,6 @@ void run() {
 }
 
 int main(int argc,char* argv[]) {
-    clock_t sc = clock();
     time_t st = time(NULL);
     
     FILE *fp;
@@ -194,9 +193,7 @@ int main(int argc,char* argv[]) {
     run();
 
     time_t et = time(NULL);
-    clock_t ec = clock();
     
     printf("time: %d\n",et-st);
-    printf("time: %f\n",ec-sc);
     return 0;
 }
