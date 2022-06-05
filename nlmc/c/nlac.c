@@ -48,6 +48,14 @@ int toint(char *str) {
     }
     return ret;
 }
+int texttonum(char *str) {
+    int len = strlen(str);
+    int ret = 0;
+    for (int i=0;i<len;i++) {
+        ret += (str[i]-48)*exponentiation(74,len-i-1);
+    }
+    return ret;
+}
 void lntrim(char *str) {
     int i = 0;
     while(1) {

@@ -109,34 +109,34 @@ void run() {
                 p = label[lcode[p+1]];
             break;
             case 10: // jpc
-                if (flag_var[1]==0) {
+                if (flag_var[1]==1) {
                     p = label[lcode[p+1]];
                 }
             break;
 
             case 100: // equ
-                if (int_var[lcode[p+2]]==int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]==int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
             case 101: // nequ
-                if (int_var[lcode[p+2]]!=int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]!=int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
             case 102: // gtr
-                if (int_var[lcode[p+2]]>int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]>int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
             case 103: // les
-                if (int_var[lcode[p+2]]<int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]<int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
             case 104: // geq
-                if (int_var[lcode[p+2]]>=int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]>=int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
             case 105: // leq
-                if (int_var[lcode[p+2]]<=int_var[lcode[p+3]]) flag_var[1] = 0;
-                else flag_var[1] = 1;
+                if (int_var[lcode[p+2]]<=int_var[lcode[p+3]]) flag_var[1] = 1;
+                else flag_var[1] = 0;
             break;
 
             default:
@@ -189,7 +189,6 @@ int main(int argc,char* argv[]) {
     printf("\n");
     printf("\n");
     fread(lcode,4,fsize/sizeof(int),fp);
-
     fclose(fp);
 
     run();
