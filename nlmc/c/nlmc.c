@@ -1,4 +1,4 @@
-// // 2022.4 haruki1234
+// // 2022.6 haruki1234
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -107,6 +107,11 @@ void run() {
             break;
             case 9: // jmp
                 p = label[lcode[p+1]];
+            break;
+            case 10: // jpc
+                if (flag_var[1]==0) {
+                    p = label[lcode[p+1]];
+                }
             break;
 
             case 100: // equ

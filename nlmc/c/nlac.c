@@ -110,6 +110,7 @@ int main(int argc,char* argv[]) {
         else if (strncmp(dst[0],"push",cmpr)==0) code[0] = 7;
         else if (strncmp(dst[0],"pop",cmpr)==0) code[0] = 8;
         else if (strncmp(dst[0],"jmp",cmpr)==0) code[0] = 9;
+        else if (strncmp(dst[0],"jpc",cmpr)==0) code[0] = 10;
         else if (strncmp(dst[0],"equ",cmpr)==0) code[0] = 100; // 等しい ==
         else if (strncmp(dst[0],"nequ",cmpr)==0) code[0] = 101; // 等しくない !=
         else if (strncmp(dst[0],"gtr",cmpr)==0) code[0] = 102; // より大きい >

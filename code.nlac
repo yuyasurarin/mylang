@@ -1,12 +1,6 @@
 set int 0,0
 set int 1,1
-push int 1
-push int 1
-pop int 2
-pop int 3
-add int 0,2
-add int 0,3
-cmp int 1,0
-add int 0,2
-add int 0,3
-label 0
+add int 0,1
+jpc 1
+label 1
+add int 0,10
