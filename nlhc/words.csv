@@ -48,6 +48,8 @@ hapupusi,,名詞,一般名詞,林檎,
 minusi,,名詞,一般名詞,人,
 gubunaminusi,gubuna-minu_si,名詞,名詞,政治家,
 guhowanugusi,guho-wanugu_si,名詞,名詞,王,
+higuhosi,hi-guho_si,名詞,名詞,国内,
+hadiguhosi,hadi-guho_si,名詞,名詞,国外,
 guhosi,,名詞,名詞,国,
 gubunasi,,名詞,名詞,政治,
 sahusi,,名詞,名詞,場所,
@@ -91,7 +93,7 @@ hitita,,動詞,動詞,理解する,
 higita,,動詞,動詞,読む,
 kirita,,動詞,動詞,切る,
 nita,,動詞,動詞,である,
-cobata,,動詞,動詞,呼ぶ,
+kobata,,動詞,動詞,呼ぶ,
 notu,,形容詞,形容詞,無い,
 hatitu,,形容詞,形容詞,速い,
 gahotu,,形容詞,形容詞,高い,
@@ -100,9 +102,15 @@ hakadamitu,,形容詞,形容詞,学問の,
 gunatu,,形容詞,形容詞,小さい,
 kunatu,,形容詞,形容詞,大きい,
 tanotu,,形容詞,形容詞,楽しい,
+hitu,,形容詞,形容詞,内側の,
+minutitu,,形容詞,形容詞,賢い,
+sazititu,,形容詞,形容詞,愚かな,
+haditu,,形容詞,形容詞,外側の,
 godotu,,形容詞,形容詞,良い,
+hasetu,,形容詞,形容詞,悪い,
 guhota,,形容詞,形容詞,国の,
 gubunatu,,形容詞,形容詞,政治の,
+higuhotu,hi-guho_tu,形容詞,形容詞,国内の,
 pasa,,数詞,2進数詞,0
 gosa,,数詞,2進数詞,1
 misa,,数詞,4進数詞,2
@@ -119,6 +127,12 @@ kosa,,数詞,16進数詞,12
 dosa,,数詞,16進数詞,13
 nosa,,数詞,16進数詞,14
 zosa,,数詞,16進数詞,15
+nesu,,数詞,数接頭辞,1桁上 10
+hasu,,数詞,数接頭辞,2桁上 100
+sosu,,数詞,数接頭辞,3桁上 1000
+muhisu,,数詞,数接頭辞,4桁上 1 0000
+dusisu,,数詞,数接頭辞,8桁上 1 0000 0000
+pudisu,,数詞,数接頭辞,12桁上 1 0000 0000 0000
 bahasi,,名詞,一般名詞,a,
 binusi,,名詞,一般名詞,b,
 donusi,,名詞,一般名詞,d,
