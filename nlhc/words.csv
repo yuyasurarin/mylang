@@ -1,5 +1,7 @@
 suhi,,標識詞,標識詞,肯定
 zuhi,,標識詞,標識詞,否定
+sunu,,標識詞,標識詞,可能
+zunu,,標識詞,標識詞,不可能
 dida,,標識詞,標識詞,能動態
 tada,,標識詞,標識詞,受動態
 ziza,,標識詞,標識詞,現在形
@@ -26,6 +28,9 @@ gibusi,,名詞,指示代名詞,どれ,物の不定称
 tukasi,,名詞,指示代名詞,そいつ,人の近称
 dukasi,,名詞,指示代名詞,あいつ,人の遠称
 gubasi,,名詞,指示代名詞,どいつ,人の不定称
+honasi,,名詞,指示代名詞m,ここ,場所の近称
+sonasi,,名詞,指示代名詞,あそこ,場所の遠称
+dobasi,,名詞,指示代名詞,どこ,場所の不定称
 basi,,名詞,疑問代名詞,なに,不定称
 hosi,,名詞,一般名詞,物事・行動,
 zitosi,,名詞,一般名詞,時間,
@@ -39,10 +44,12 @@ tihonugusi,,名詞,一般名詞,昼,
 nihutasi,,名詞,一般名詞,夜,
 numumasinusi,numu-masinu_si,名詞,一般名詞,計算機,
 kohusi,,名詞,一般名詞,光,
-henhekusi,,名詞,一般名詞,電気,
+hanhakusi,,名詞,一般名詞,電気,
 numuphsi,,名詞,一般名詞,計算,
 hakuhasi,,名詞,一般名詞,水,
 sibusi,,名詞,一般名詞,食べ物,
+photosi,,名詞,一般名詞,写真,
+phosi,,名詞,一般名詞,星,
 hitosi,,名詞,一般名詞,言葉・言語,
 tosi,,名詞,一般名詞,単語,
 mosi,,名詞,一般名詞,文字,
@@ -50,6 +57,7 @@ sohusi,,名詞,一般名詞,音,
 konusohusi,,名詞,一般名詞,子音,
 bohasohusi,,名詞,一般名詞,母音,
 hapupusi,,名詞,一般名詞,林檎,
+dusagusi,,名詞,一般名詞,設計,
 minusi,,名詞,一般名詞,人,
 gubunaminusi,gubuna-minu_si,名詞,名詞,政治家,
 guhowanugusi,guho-wanugu_si,名詞,名詞,王,
@@ -64,7 +72,7 @@ hisosi,,名詞,一般名詞,年,
 monusi,,名詞,一般名詞,月,
 dahisi,,名詞,一般名詞,日,
 tihasi,,名詞,一般名詞,動物,
-netosi,,名詞,一般名詞,網,
+nutosi,,名詞,一般名詞,網,
 honuganisi,,名詞,一般名詞,生物,
 hakadamisi,,名詞,一般名詞,学問,
 budinasi,,名詞,一般名詞,建物,
@@ -96,6 +104,7 @@ gubunata,,動詞,動詞,治める,
 hitiphta,,動詞,動詞,理解する,
 higita,,動詞,動詞,読む,
 kirita,,動詞,動詞,切る,
+dusaguta,,動詞,動詞,設計する,
 nita,,動詞,動詞,である,
 kobata,,動詞,動詞,呼ぶ,
 notu,,形容詞,形容詞,無い,
@@ -111,7 +120,7 @@ minutitu,,形容詞,形容詞,賢い,
 sazititu,,形容詞,形容詞,愚かな,
 haditu,,形容詞,形容詞,外側の,
 godotu,,形容詞,形容詞,良い,
-henhekutu,,形容詞,形容詞,電気の,
+hanhakutu,,形容詞,形容詞,電気の,
 hasatu,,形容詞,形容詞,悪い,
 guhota,,形容詞,形容詞,国の,
 gubunatu,,形容詞,形容詞,政治の,
@@ -121,7 +130,7 @@ higuhotu,hi-guho_tu,形容詞,形容詞,国内の,
 godotu'bihanasi,godotu bihanasi,熟語,熟語,おはようございます,
 godotu'tihonugusi,godotu tihonugusi,熟語,熟語,こんにちは,
 godotu'nihutasi,godotu nihutasi,熟語,熟語,こんばんわ,
-henhekutu'numumasinusi,,熟語,熟語,電子計算機
+hanhakutu'numumasinusi,,熟語,熟語,電子計算機
 hasatu'gubunasi,,熟語,熟語,悪政,
 hitu'pununasi,,熟語,熟語,内戦,
 higipapasi'budinasi,higipapasi budinasi,熟語,熟語,図書館,
