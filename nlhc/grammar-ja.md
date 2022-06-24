@@ -84,16 +84,16 @@ S tu V ti O1 to O2. (SはO1にO2をV)
 15 => go-nasa  
 1000 => go-pa-pa-pasa  
 15305 => gosa-musu-na-ti-pa-nasa  
-625847187 => kasa-dusu-mi-na-su-gasa-musu-ba-go-su-basa
+625847187 => kasa-dusu-mi-na-su-gasa-musu-ba-go-su-basa  
 
--- 16進数
-0 => pasa
-a => disa
-af => di-zosa
-4a8fe5 => go-disa-musu-su-zo-no-nasa
+-- 16進数  
+0 => pasa  
+a => disa  
+af => di-zosa  
+4a8fe5 => go-disa-musu-su-zo-no-nasa  
 
--- 2進数
-0 => pasa
-1 => gosa
-1010 => go-pa-go-pasa
-1001110 => go-pa-pasa-musu-go-go-go-pasa
+-- 2進数  
+0 => pasa  
+1 => gosa  
+1010 => go-pa-go-pasa  
+1001110 => go-pa-pasa-musu-go-go-go-pasa  
