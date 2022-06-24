@@ -19,8 +19,6 @@ a b d g h i k m n o p s t u z
 子音: k g s z p b t d m n h sh nh ph  
 母音: a i u o  
 
-# 単語
-
 # 熟語
 熟語は、複数の単語でできる  
 熟語の間は「'」で区切る  
@@ -61,7 +59,6 @@ S tu V ti O1 to O2. (SはO1にO2をV)
 名詞 動詞 形容詞  
 
 # 標識 (極性・時制・相・態)
-
 極性 => 時制 => 相 => 態 の順で書く  
 
 能動態・現在形・完結形・肯定 の場合は、明示する必要がない  
@@ -69,5 +66,34 @@ S tu V ti O1 to O2. (SはO1にO2をV)
 
 # 表記
 基本的に全て小文字  
-固有名詞等の一文字目は大文字  
+固有名詞等は大文字  
+擬音語などの一文字目は大文字  
 単語と単語の間はスペースで区切る  
+
+# 数字の表現
+
+4桁ごとに接頭辞をつけて読む  
+その他は数を並べて読む  
+区切りの最後以外で"sa"をつける必要はない  
+
+-- 10進数  
+0 => pasa  
+1 => gosa  
+2 => misa  
+10 => go-pasa  
+15 => go-nasa  
+1000 => go-pa-pa-pasa  
+15305 => gosa-musu-na-ti-pa-nasa  
+625847187 => kasa-dusu-mi-na-su-gasa-musu-ba-go-su-basa
+
+-- 16進数
+0 => pasa
+a => disa
+af => di-zosa
+4a8fe5 => go-disa-musu-su-zo-no-nasa
+
+-- 2進数
+0 => pasa
+1 => gosa
+1010 => go-pa-go-pasa
+1001110 => go-pa-pasa-musu-go-go-go-pasa
