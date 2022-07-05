@@ -16,7 +16,7 @@ a b d g h i k m n o p s t u z
 
 1つの単語の中で、子音や母音が連続することはない  
 
-子音: k g s z p b t d m n h sh nh ph  
+子音: k g s z p b t d m n h sh nh(r) ph(f) nt(y)  
 母音: a i u o  
 
 # 熟語
