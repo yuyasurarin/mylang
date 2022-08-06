@@ -5,7 +5,7 @@
 a b d g h i k m n o p s t u z  
 に対応する  
 
-子音字: k g s z p b t d m n h sh ph nt  
+子音字: k g s z p b t d m n h  
 母音字: a i u o  
 数字　: 0 1 2 3 4 5 6 7 8 9 a b c d e f
 
@@ -13,7 +13,7 @@ a b d g h i k m n o p s t u z
 合字を使っても、使わずに2つの子音字を並べても良い  
 同じ文書のなかでの混同は好ましくない  
 
-※子音字 b d、母音字 a と数字 a b c d e f は別の文字コードを与えられている  
+※NCにおいて、子音字 b d、母音字 a と数字 a b c d e f は別の文字コードを与えられている  
 
 # 音
 子音は数個の子音字で表される (1～2個程度)  
@@ -23,7 +23,7 @@ a b d g h i k m n o p s t u z
 
 1つの単語の中で、子音や母音が連続することはない  
 
-子音: k g s z p b t d m n h sh nh(r) ph(f) nt(y)  
+子音: k g s z p b t d m n h sh(θ) nh(r) ph(f) nt(y)  
 母音: a i u o  
 
 # 熟語
