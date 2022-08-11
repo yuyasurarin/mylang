@@ -3,18 +3,11 @@
     <head>
         <title>nl</title>
         <meta charset="utf-8">
+        <link href="style.css" rel="stylesheet">
     </head>
     <body>
         <div>
-            <textarea id="codearea"></textarea>
-            <div id="highlight"></div>
-        </div>
-    </body>
-</html>
-<script src="nl.js"></script>
-<script>
-
-code = `/***************\\
+            <textarea id="codearea">/***************\\
 *               *
 * Block comment *
 *               *
@@ -25,8 +18,14 @@ code = `/***************\\
     !txt:a1 = "hello";
     !txt:t = a1+"world"; // line comment
     rt;
-}
-`
+}</textarea>
+            <div id="highlight"></div>
+        </div>
+    </body>
+</html>
+<script src="nl.js"></script>
+<script>
+
 
 
 function tokenaize(c) {
@@ -146,9 +145,10 @@ function tokenaize(c) {
         return token;
     }
 function highlight() {
-    tokens = tokenaize(code)
+    tokens = tokenaize(document.getElementById("codearea").value)
     console.log(tokens)
     let outelm = document.getElementById("highlight")
+    outelm.innerHTML = "";
     for (let t=0;t<tokens.length;t++) {
         thistoken = document.createElement("span")
         inthistoken = document.createElement("pre")
@@ -158,6 +158,12 @@ function highlight() {
         outelm.appendChild(thistoken)
     }
 }
+codeelm = document.getElementById("codearea")
+codeelm.onchange = highlight
+codeelm.onkeydown = highlight
+codeelm.onkeypress = highlight
+codeelm.onkeyup = highlight
+
 highlight()
 </script>
 <style>
@@ -204,9 +210,6 @@ highlight()
         margin: 20px;
         padding: 30px;
         width: min-content;
-        background-color: rgb(20, 18, 28);
-        color: rgb(245, 241, 236);
-        border: 1px solid yellowgreen;
         border-radius: 10px;
     }
 </style>
