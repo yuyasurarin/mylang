@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>nl</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>
+            <textarea id="codearea"></textarea>
+            <div id="highlight"></div>
+        </div>
+    </body>
+</html>
+<script src="nl.js"></script>
+<script>
+
+code = `/***************\\
+*               *
+* Block comment *
+*               *
+\\***************/
+
+!fn:void:a(num:n) = {
+    !num:n = n+10+n*2;
+    !txt:a1 = "hello";
+    !txt:t = a1+"world"; // line comment
+    rt;
+}
+`
+
+
+function tokenaize(c) {
+        let p = 0;
+        let searchtype = [
+            ["EQUAL","=="],
+            ["NOTEQUAL","~="],
+            ["EXCLAIM","!"],
+            ["ASSIGN","="],
+            ["PLUS","+"],
+            ["MINUS","-"],
+            ["MUL","*"],
+            ["NOT","~"],
+            ["DIV","/"],
+            ["LESS","<"],
+            ["GREATER",">"],
+            ["LPAREN","("],
+            ["RPAREN",")"],
+            ["LBRACE","{"],
+            ["RBRACE","}"],
+            ["SEMICOLON",";"],
+            ["COLON",":"],
+            ["FUNCTION","fn"],
+            ["RETURN","rt"],
+            ["IF","if"],
+            ["ELSE","ELSE"],
+            ["BOOL","true"],
+            ["BOOL","false"],
+        ]
+        let token = []
+        while (p<c.length) {
+            if (c[p]==" ") {
+                let scomment = p
+                while (c[p]==" ") {
+                    p+=1;
+                }
+                token.push(["BLANK",c.slice(scomment,p),"N"])
+                continue;
+            }
+            else if (c[p]=="\n") {
+                p+=1;
+                token.push(["CR","\n"])
+                continue;
+            }
+            else if (c[p]=="/"&&c[p+1]=="*") {
+                let scomment = p
+                p+=2;
+                while (!((c[p]=="*"&&c[p+1]=="/")||c[p]==null)) {
+                    if (c[p]==" ") {
+                        token.push(["BCOMMENT",c.slice(scomment,p)])
+                        scomment = p
+                        while (c[p]==" ") {
+                            p++;
+                        }
+                        token.push(["BLANKBC",c.slice(scomment,p)])
+                        scomment = p
+                    }
+                    if (c[p]=="\n") {
+                        token.push(["BCOMMENT",c.slice(scomment,p)])
+                        token.push(["CR","\n"])
+                        p++
+                        scomment = p
+                    }
+                    p++;
+                }
+                p+=2;
+                token.push(["BCOMMENT",c.slice(scomment,p)])
+                continue;
+            }
+            else if (c[p]=="/"&&c[p+1]=="/") {
+                while (!(c[p+1]=="\n"||c[p+1]==null)) {
+                    p++;
+                }
+                p+=1;
+                continue;
+            }
+
+            token.push(["VARIABLE",""]);
+            while (!(c[p]==" "||c[p]=="\n"||c[p]==null)) {
+                let opflag = false;
+                let mlcomm = false;
+                for (let o=0;o<searchtype.length;o++) {
+                    if (c.startsWith(searchtype[o][1],p)) {
+                        p+=searchtype[o][1].length;
+                        if (token[token.length-1][1]!="") {
+                            token[token.length]=searchtype[o];
+                        }
+                        else {
+                            token[token.length-1]=searchtype[o];
+                        }
+                        if (token[token.length-1][0]=="COLON"&&token[token.length-2][0]=="VARIABLE") {
+                            token[token.length-2][0]="TYPE";
+                        }
+                        token.push(["VARIABLE",""]);
+                        opflag = true;
+                        break;
+                    }
+                }
+                if (!opflag) {
+                    token[token.length-1][1]+=c[p];
+                    if (token[token.length-1][0]=="VARIABLE") {
+                        let nums = [0,1,2,3,4,5,6,7,8,9];
+                        for (let n=0;n<nums.length;n++) {
+                            if (token[token.length-1][1][0]==nums[n]) {
+                                token[token.length-1][0]="DIGITS"
+                            }
+                        }
+                    }
+                    p++;
+                }
+            }
+            if (token[token.length-1][1]=="") {
+                token.splice(token.length-1,1);
+            }
+        }
+        token.push(["EOF",""])
+        return token;
+    }
+function highlight() {
+    tokens = tokenaize(code)
+    console.log(tokens)
+    let outelm = document.getElementById("highlight")
+    for (let t=0;t<tokens.length;t++) {
+        thistoken = document.createElement("span")
+        inthistoken = document.createElement("pre")
+        inthistoken.innerHTML += tokens[t][1]
+        inthistoken.className = tokens[t][0]
+        thistoken.appendChild(inthistoken)
+        outelm.appendChild(thistoken)
+    }
+}
+highlight()
+</script>
+<style>
+.BCOMMENT { /* ブロックコメント */
+    color:yellowgreen;
+}
+.BLANKBC { /* コメント 空白 */
+    text-decoration: underline rgba(153, 205, 50, 0.3);
+}
+.BLANK { /* 空白 */
+    text-decoration: underline rgba(255, 255, 255, 0.3);
+}
+.FUNCTION { /* 関数 */
+    color:rgb(255, 148, 85);
+}
+.TYPE {
+    color: rgb(112, 185, 254);
+}
+.VARIABLE {
+    color: rgb(15, 244, 244);
+}
+.DIGITS {
+    color: rgb(255, 221, 83);
+}
+.RETURN {
+    color: rgb(255, 115, 115);
+}
+.EXCLAIM {
+    color: rgb(255, 0, 60);
+}
+</style>
+<style>
+    #codearea {
+        height: 40vh;
+        width: 50vw;
+    }
+    pre {
+        margin: 0px;
+        height: min-content;
+        font-size: 23px;
+        display: inline;
+    }
+    #highlight {
+        margin: 20px;
+        padding: 30px;
+        width: min-content;
+        background-color: rgb(20, 18, 28);
+        color: rgb(245, 241, 236);
+        border: 1px solid yellowgreen;
+        border-radius: 10px;
+    }
+</style>
